@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using _1811061325_LeTrongNhan_BigSchool.Models;
 
+
 namespace _1811061325_LeTrongNhan_BigSchool.Controllers
 {
     [Authorize]
@@ -55,6 +56,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;

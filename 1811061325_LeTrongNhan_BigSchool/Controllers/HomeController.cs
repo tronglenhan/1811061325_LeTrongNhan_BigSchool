@@ -1,4 +1,5 @@
 ﻿using _1811061325_LeTrongNhan_BigSchool.Models;
+using _1811061325_LeTrongNhan_BigSchool.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -25,8 +26,14 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
                 .Include(c => c.Category)
                 .Where(c => c.DateTime > DateTime.Now);
 
+            var viewModel = new CoursesViewModel
+            {
+                UpcommingCourses = b,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+
           
-            return View(b);
+            return View(viewModel);
         }
 
         public ActionResult About()
