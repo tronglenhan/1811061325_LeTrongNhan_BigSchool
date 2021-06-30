@@ -1,5 +1,7 @@
-﻿using System;
+﻿using _1811061325_LeTrongNhan_BigSchool.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,9 +10,22 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext _dbContext;
+        public HomeController()
+        {
+            _dbContext = new ApplicationDbContext();
+
+        }
+      
         public ActionResult Index()
         {
-            return View();
+            var b = _dbContext.Courses.Where(c => c.DateTime < DateTime.Now)
+                .Include(c => c.Lecturer)
+                .Include(c => c.Category).ToList();
+                
+                
+
+            return View(b);
         }
 
         public ActionResult About()
