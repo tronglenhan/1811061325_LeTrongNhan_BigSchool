@@ -19,12 +19,13 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
       
         public ActionResult Index()
         {
-            var b = _dbContext.Courses.Where(c => c.DateTime < DateTime.Now)
+            
+            var b = _dbContext.Courses
                 .Include(c => c.Lecturer)
-                .Include(c => c.Category).ToList();
-                
-                
+                .Include(c => c.Category)
+                .Where(c => c.DateTime > DateTime.Now);
 
+          
             return View(b);
         }
 
