@@ -28,7 +28,6 @@
                             <button class="btn btn-default btn-sm js-toggle-follow" data--user-id="@course.LecturerId">Follow</button>
                         }
 
-
                     </span>
                     <span class="category">
                         @course.Category.Name
@@ -38,56 +37,64 @@
                     {
                         <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
 
-                    }
-                   
 
+                    }
+                    
                 </div>
 
             </li>
         }
 
     </ul>
-    @section scripts{
-
-        <script>
-const { target } = require("modernizr");
-
-            $(document).ready(function () {
-
-                $(".js-toggle-attendance").click(function (e) {
-
-                    var button = $(e.target);
-                    $.post("/api/Attendances", { courseId.button.attr("data-course-id") })
-                        .done(function () {
-                            button.removeClass("btn-default").addClass("btn-info").text("Going");
-                        })
-                        .fail(function () {
-                            alert("Something failed");
-                         });
+ @section scripts{
+     <script>
+         $(document).ready(function () {
+             $(".js-toggle-attendance").click(function (e) {
+                 var button = $(e.target);
+                 $.post("/api/Attendances", { followeeId: button.attr("data--user-id") })
+                     .done(function () {
+                         button
+                             .removeClass(" btn-default")
+                             .addClass("btn-info")
+                             .text("Going");
 
 
-                });
-                $(".js-toggle-follow").click(function (e) {
+                     })
+                     .fail(function () {
 
-                    var button = $(target);
-                    $.post("/api/followings", { followeeId: button.attr("data-user-id") })
-                        .done(function () {
+                         alert("Something failed");
 
-                            button.text("Following");
-                        })
-                        .fail(function () {
+                     });
 
-                            alert("Something failed");
+             });
+             $(".js-toggle-follow").click(function (e) {
+                 var button = $(e.target);
+                 $.post("/api/Followings", { followeeId: button.attr("data--user-id") })
+                     .done(function () {
+                         button.text("Following");
 
-                        });
+                     })
+                     .fail(function () {
 
-                });
+                         alert("Something failed");
+                     });
 
-            });
+             });
 
+         });
+     </script>
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     }
 
+     
 
-        </script>
-
-    }
+    
 </div>

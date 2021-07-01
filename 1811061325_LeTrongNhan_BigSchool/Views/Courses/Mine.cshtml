@@ -31,7 +31,7 @@
 
             <div class="action">
                 <a href="@Url.Action("Edit","Courses", new { id = course.Id})">Edit |</a>
-                <a href="#" class="js-cancel-course" data--course-id="@course.Id">Cancel</a>
+                <a href="#" class="js-cancel-course" data-course-id="@course.Id">Cancel</a>
 
             </div>
 
@@ -67,7 +67,7 @@
                         if (result) {
                             $.ajax({
 
-                                url: "api/courses/" + link.attr(" data--course-id"),
+                                url: "api/courses/" + link.attr(" data-course-id"),
                                 method: "DELETE"
 
                             })

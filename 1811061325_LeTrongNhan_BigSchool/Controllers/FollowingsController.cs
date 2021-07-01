@@ -20,7 +20,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Attend(FollowingDTO followingDTO)
+        public IHttpActionResult Follow(FollowingDTO followingDTO)
         {
             var userId = User.Identity.GetUserId();
             if (_dbContext.Followings.Any(a => a.FollwerId == userId && a.FolloweeId == followingDTO.FolloweeId))
@@ -32,7 +32,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
                 FollwerId = userId,
                 FolloweeId = followingDTO.FolloweeId
 
-
+                 
             };
 
             _dbContext.Followings.Add(following);
