@@ -20,6 +20,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
             _dbContext = new ApplicationDbContext();
         }
 
+        /*
         [HttpPost]
         public IHttpActionResult Attend([FromBody] int courseId)
         {
@@ -31,7 +32,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
             var attendance = new Attendance
             {
                 CourseId = courseId,
-                AttendeeId = User.Identity.GetUserId()
+                AttendeeId = userId
 
 
             };
@@ -42,7 +43,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
             return Ok();
 
         }
-    
+        */
 
         [HttpPost]
         public IHttpActionResult Attend(AttendanceDTO attendanceDTO)

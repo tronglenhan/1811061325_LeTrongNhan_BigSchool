@@ -19,7 +19,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers.Api
         }
 
         [HttpDelete]
-        public IHttpActionResult Cancel([FromBody]int id)
+        public IHttpActionResult Cancel(int id)
         {
             var userId = User.Identity.GetUserId();
 
@@ -29,13 +29,14 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers.Api
             {
                 return NotFound();
             }
-          
+
             course.IsCanceled = true;
             _dbContext.SaveChanges();
 
-
-
             return Ok();
+
         }
+
+
     }
 }

@@ -1,4 +1,6 @@
 ﻿@model _1811061325_LeTrongNhan_BigSchool.ViewModel.CoursesViewModel
+@using Microsoft.AspNet.Identity;
+@using _1811061325_LeTrongNhan_BigSchool.Models;
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,11 +29,11 @@
                         {
                             if (Model.Followings.Any(f => f.FolloweeId == course.Lecturer.Id))
                             {
-                                <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Following</button>
+                                <button data-user-id="@course.Lecturer.Id" class="btn btn-default btn-sm js-toggle-follow">Following</button>
                             }
                             else
                             {
-                                <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Follow?</button>
+                                <button data-user-id="@course.Lecturer.Id" class="btn btn-default btn-sm js-toggle-follow">Follow?</button>
                             }
                         }
 
@@ -42,20 +44,15 @@
                     </span>
                     @if (Model.ShowAction)
                     {
-                       if (Model.Attendances.Any(x => x.CourseId == course.Id))
-                            {
-                                <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
-                            }
-                            else
-                            {
-                                <button data-course-id="@course.Id" class="btn btn-sm btn-info">Going</button>
-                            }
+                        if (Model.Attendances.Any(x => x.CourseId == course.Id))
+                        {
+                             <button data-course-id="@course.Id" class="btn btn-sm btn-info">Going</button> }
+                       else
+                       {
+                             <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>}
+                       }
 
 
-
-
-                    }
-                    
                 </div>
 
             </li>
@@ -67,7 +64,7 @@
          $(document).ready(function () {
              $(".js-toggle-attendance").click(function (e) {
                  var button = $(e.target);
-                 $.post("/api/Attendances", { followeeId: button.attr("data--user-id") })
+                 $.post("/api/Attendances", { courseId: button.attr("data-course-id") })
                      .done(function () {
                          button
                              .removeClass(" btn-default")
@@ -85,7 +82,7 @@
              });
              $(".js-toggle-follow").click(function (e) {
                  var button = $(e.target);
-                 $.post("/api/Followings", { followeeId: button.attr("data--user-id") })
+                 $.post("/api/followings", { FolloweeId: button.attr("data-user-id") })
                      .done(function () {
                          button.text("Following");
 

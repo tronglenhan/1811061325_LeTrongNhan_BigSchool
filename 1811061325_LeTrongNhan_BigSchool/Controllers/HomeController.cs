@@ -21,22 +21,27 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
       
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserId();
-            var b = _dbContext.Courses
-                .Include(c => c.Lecturer)
-                .Include(c => c.Category)
-                .Where(c => c.DateTime > DateTime.Now);
+            var upcommingCourses = _dbContext.Courses
+                                       .Include(c => c.Lecturer)
+                                       .Include(c => c.Category)
+                                       .Where(a => a.IsCanceled == false)
+                                       .Where(c => c.DateTime > DateTime.Now);
 
+            var userId = User.Identity.GetUserId();
+                
             var viewModel = new CoursesViewModel
             {
-                UpcommingCourses = b,
+                UpcommingCourses = upcommingCourses,
                 ShowAction = User.Identity.IsAuthenticated,
-                Followings = _dbContext.Followings.Where(f => userId != null && f.FollowerId == userId).ToList(),
+                Followings = _dbContext.Followings.Where(f => userId != null && f.FolloweeId == userId).ToList(),
                 Attendances = _dbContext.Attendances.Include(a => a.Course).ToList()
+
             };
 
-          
             return View(viewModel);
+
+
+           
         }
 
         public ActionResult About()
