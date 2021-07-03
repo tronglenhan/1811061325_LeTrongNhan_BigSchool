@@ -1,5 +1,6 @@
 ﻿using _1811061325_LeTrongNhan_BigSchool.Models;
 using _1811061325_LeTrongNhan_BigSchool.ViewModel;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -20,7 +21,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
       
         public ActionResult Index()
         {
-            
+            var userId = User.Identity.GetUserId();
             var b = _dbContext.Courses
                 .Include(c => c.Lecturer)
                 .Include(c => c.Category)
@@ -29,7 +30,9 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
             var viewModel = new CoursesViewModel
             {
                 UpcommingCourses = b,
-                ShowAction = User.Identity.IsAuthenticated
+                ShowAction = User.Identity.IsAuthenticated,
+                Followings = _dbContext.Followings.Where(f => userId != null && f.FollowerId == userId).ToList(),
+                Attendances = _dbContext.Attendances.Include(a => a.Course).ToList()
             };
 
           

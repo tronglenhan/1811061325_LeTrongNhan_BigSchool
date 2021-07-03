@@ -6,11 +6,9 @@ using System.Web;
 
 namespace _1811061325_LeTrongNhan_BigSchool.ViewModel
 {
-    public class CoursesViewModel
+    public class FollowingViewModel
     {
-        public IEnumerable<Course> UpcommingCourses { get; set; }
-        public IEnumerable<Following> Followings { get; set; }
-        public IEnumerable<Attendance> Attendances { get; set; }
+        public IEnumerable<ApplicationUser> Followings { get; set; }
         public bool ShowAction { get; set; }
     }
 }

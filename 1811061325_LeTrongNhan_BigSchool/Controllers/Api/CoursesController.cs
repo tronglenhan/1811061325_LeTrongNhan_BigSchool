@@ -19,19 +19,21 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers.Api
         }
 
         [HttpDelete]
-        public IHttpActionResult Cancel(int id)
+        public IHttpActionResult Cancel([FromBody]int id)
         {
             var userId = User.Identity.GetUserId();
 
             var course = _dbContext.Courses.Single(c => c.Id == id && c.LecturerId == userId);
 
-            if (course.IsCancled)
+            if (course.IsCanceled)
             {
                 return NotFound();
             }
-
-            course.IsCancled = true;
+          
+            course.IsCanceled = true;
             _dbContext.SaveChanges();
+
+
 
             return Ok();
         }

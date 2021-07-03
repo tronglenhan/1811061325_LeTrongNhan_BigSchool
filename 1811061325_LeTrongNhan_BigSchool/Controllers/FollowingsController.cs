@@ -23,18 +23,17 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
         public IHttpActionResult Follow(FollowingDTO followingDTO)
         {
             var userId = User.Identity.GetUserId();
-            if (_dbContext.Followings.Any(a => a.FollwerId == userId && a.FolloweeId == followingDTO.FolloweeId))
+            if (_dbContext.Followings.Any(f => f.FollowerId == userId && followingDTO.FolloweeId == f.FolloweeId))
             {
-                return BadRequest("The Attendance already exits");
+                return BadRequest("Follow does not exist");
             }
+
+
             var following = new Following
             {
-                FollwerId = userId,
+                FollowerId = userId,
                 FolloweeId = followingDTO.FolloweeId
-
-                 
             };
-
             _dbContext.Followings.Add(following);
             _dbContext.SaveChanges();
 

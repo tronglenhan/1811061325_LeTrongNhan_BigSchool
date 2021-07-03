@@ -293,7 +293,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\CoursesController.cs" />
-    <Compile Include="Controllers\AttendancesController.cs" />
+    <Compile Include="Controllers\Api\AttendancesController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\FollowingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -332,6 +332,14 @@
     <Compile Include="Migrations\202106302147304_UpdateColumn.Designer.cs">
       <DependentUpon>202106302147304_UpdateColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107030508265_FixFollowerId.cs" />
+    <Compile Include="Migrations\202107030508265_FixFollowerId.Designer.cs">
+      <DependentUpon>202107030508265_FixFollowerId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107030510355_FixCanceled.cs" />
+    <Compile Include="Migrations\202107030510355_FixCanceled.Designer.cs">
+      <DependentUpon>202107030510355_FixCanceled.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -345,6 +353,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CoursesViewModel.cs" />
     <Compile Include="ViewModel\CourseViewModel.cs" />
+    <Compile Include="ViewModel\FollowingViewModel.cs" />
     <Compile Include="ViewModel\FutureDate.cs" />
     <Compile Include="ViewModel\ValidTime.cs" />
   </ItemGroup>
@@ -447,6 +456,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106302147304_UpdateColumn.resx">
       <DependentUpon>202106302147304_UpdateColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107030508265_FixFollowerId.resx">
+      <DependentUpon>202107030508265_FixFollowerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107030510355_FixCanceled.resx">
+      <DependentUpon>202107030510355_FixCanceled.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

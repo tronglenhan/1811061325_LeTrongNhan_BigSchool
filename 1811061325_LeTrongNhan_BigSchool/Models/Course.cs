@@ -10,7 +10,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Models
     {
         public int Id { get; set; }
 
-        public bool IsCancled { get; set; }
+        public bool IsCanceled { get; set; }
         public ApplicationUser Lecturer { get; set; }
 
         [Required]

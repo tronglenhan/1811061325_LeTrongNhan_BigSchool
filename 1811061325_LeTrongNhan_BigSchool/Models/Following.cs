@@ -11,7 +11,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Models
     {
         [Key]
         [Column(Order =1)]
-        public string FollwerId { get; set; }
+        public string FollowerId { get; set; }
 
         [Key]
         [Column(Order =2)]

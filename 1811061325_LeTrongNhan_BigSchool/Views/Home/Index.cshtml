@@ -25,7 +25,14 @@
                         @course.Lecturer.Name
                         @if (Model.ShowAction)
                         {
-                            <button class="btn btn-default btn-sm js-toggle-follow" data--user-id="@course.LecturerId">Follow</button>
+                            if (Model.Followings.Any(f => f.FolloweeId == course.Lecturer.Id))
+                            {
+                                <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Following</button>
+                            }
+                            else
+                            {
+                                <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Follow?</button>
+                            }
                         }
 
                     </span>
@@ -35,7 +42,16 @@
                     </span>
                     @if (Model.ShowAction)
                     {
-                        <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
+                       if (Model.Attendances.Any(x => x.CourseId == course.Id))
+                            {
+                                <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
+                            }
+                            else
+                            {
+                                <button data-course-id="@course.Id" class="btn btn-sm btn-info">Going</button>
+                            }
+
+
 
 
                     }
