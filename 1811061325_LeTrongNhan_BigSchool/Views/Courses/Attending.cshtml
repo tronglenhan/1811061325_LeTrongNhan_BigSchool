@@ -23,10 +23,15 @@
                 <div class="detail">
                     <span class="lecture">
                         @course.Lecturer.Name
-                        @if (Model.ShowAction)
-                        {
-                            <button class="btn btn-default btn-sm js-toggle-follow" data--user-id="@course.LecturerId">Follow?</button>
-                        }
+                        @if (course.IsCanceled)
+                         {
+                             <span class="label label-warning">Canceled</span>
+                         }
+
+                         @if (Model.ShowAction && !course.IsCanceled)
+                         {
+                            <button class="btn btn-link btn-sm js-toggle-follow" data--user-id="@course.LecturerId">Follow</button>
+                         }
 
 
                     </span>
@@ -34,11 +39,7 @@
                         @course.Category.Name
 
                     </span>
-                    @if (Model.ShowAction)
-                    {
-                        <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
-
-                    }
+                    
 
 
                 </div>
@@ -52,21 +53,7 @@
         <script>
 const { target } = require("modernizr");
 
-            $(document).ready(function () {
-
-                $(".js-toggle-attendance").click(function (e) {
-
-                    var button = $(e.target);
-                    $.post("/api/Attendances", { courseId.button.attr("data-course-id") })
-                        .done(function () {
-                            button.removeClass("btn-default").addClass("btn-info").text("Going");
-                        })
-                        .fail(function () {
-                            alert("Something failed");
-                         });
-
-
-                });
+          
                 $(".js-toggle-follow").click(function (e) {
 
                     var button = $(target);
