@@ -34,8 +34,13 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
 
             _dbContext.Followings.Add(following);
             _dbContext.SaveChanges();
-
             return Ok();
+
+
+
+
+
+
 
 
         }
