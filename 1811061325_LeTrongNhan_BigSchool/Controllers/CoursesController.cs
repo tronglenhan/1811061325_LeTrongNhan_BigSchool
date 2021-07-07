@@ -90,7 +90,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
                 .Where(a => a.FolloweeId == userId)
                 .Select(a => a.Follower)
                 .ToList();
-
+    
             var viewModel = new FollowingViewModel
             {
                 Followings = followings,
