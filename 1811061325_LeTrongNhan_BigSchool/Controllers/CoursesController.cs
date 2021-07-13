@@ -74,7 +74,8 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
             var viewModel = new CoursesViewModel
             {
                 UpcommingCourses = courses,
-                ShowAction = User.Identity.IsAuthenticated
+                ShowAction = User.Identity.IsAuthenticated,
+               
             };
 
             return View(viewModel);
