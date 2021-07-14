@@ -24,17 +24,18 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
             var upcommingCourses = _dbContext.Courses
                                        .Include(c => c.Lecturer)
                                        .Include(c => c.Category)
-                                       .Where(a => a.IsCanceled == false)
-                                       .Where(c => c.DateTime > DateTime.Now);
+                                       .Where(c => c.DateTime > DateTime.Now && c.IsCanceled == false);
+                                       
+                                       
 
             var userId = User.Identity.GetUserId();
-                
+
             var viewModel = new CoursesViewModel
             {
                 UpcommingCourses = upcommingCourses,
                 ShowAction = User.Identity.IsAuthenticated,
                 Followings = _dbContext.Followings.Where(f => userId != null && f.FolloweeId == userId).ToList(),
-                Attendances = _dbContext.Attendances.Include(a => a.Course).ToList()
+                Attendances = _dbContext.Attendances.Include(a => a.Course).Where(a => userId != null && a.AttendeeId == userId).ToList()
 
             };
 

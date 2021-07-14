@@ -23,7 +23,7 @@
                 <div class="detail">
                     <span class="lecture">
                         @course.Lecturer.Name
-                        @if (course.IsCanceled)
+                        @if (course.IsCanceled == true)
                          {
                              <span class="label label-warning">Canceled</span>
                          }

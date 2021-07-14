@@ -45,12 +45,14 @@
                             if (Model.Attendances.Any(x => x.CourseId == course.Id))
                             {
 
-                                <button data-course-id="@course.Id" class="btn btn-info btn-sm js-toggle-attendance">Going</button>
+
+                                <button data-course-id="@course.Id" class="btn btn-info btn-sm ">Going</button>
 
                             }
                             else
                             {
                                 <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
+
                             }
                         }
 

@@ -109,7 +109,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
             var b = _dbContext.Courses
                 .Include(c => c.Lecturer)
                 .Include(c => c.Category)
-                .Where(c => c.DateTime > DateTime.Now && c.LecturerId == userId).ToList();
+                .Where(c => c.DateTime > DateTime.Now && c.LecturerId == userId && c.IsCanceled == false).ToList();
 
 
             return View(b);
