@@ -1,5 +1,5 @@
 ﻿using _1811061325_LeTrongNhan_BigSchool.Models;
-
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -32,9 +32,9 @@ namespace _1811061325_LeTrongNhan_BigSchool.ViewModel
             get { return (Id != 0) ? "Update" : "Create"; }
         }
 
-        public System.DateTime GetDateTime()
+        public DateTime GetDateTime()
         {
-            return System.DateTime.Parse(string.Format("{0},{1}", Date, Time));
+            return DateTime.Parse(string.Format("{0},{1}", Date, Time).ToString());
         }
     }
 }
