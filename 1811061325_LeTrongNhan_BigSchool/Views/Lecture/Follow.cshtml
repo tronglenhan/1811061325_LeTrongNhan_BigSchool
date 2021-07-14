@@ -24,10 +24,7 @@
                 <div class="detail">
                     <span class="lecture">
                         @course.Lecturer.Name
-                        @if (Model.ShowAction)
-                        {
-                            <button class="btn btn-default btn-sm js-toggle-follow" data--user-id="@course.Lecturer.Id">Follow</button>
-                        }
+                     
 
 
                     </span>
@@ -35,12 +32,7 @@
                         @course.Category.Name
 
                     </span>
-                    @if (Model.ShowAction)
-                    {
-                        <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
-
-                    }
-
+                   
 
                 </div>
 
