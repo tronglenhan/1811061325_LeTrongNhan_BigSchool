@@ -34,8 +34,27 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
 
             _dbContext.Followings.Add(following);
             _dbContext.SaveChanges();
+
             return Ok();
 
+
+        }
+
+        [HttpDelete]
+        public IHttpActionResult UnFollow(string id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var follow = _dbContext.Followings
+                .SingleOrDefault(a => a.FollowerId == userId && a.FolloweeId == id);
+
+            if (follow == null)
+                return NotFound();
+
+            _dbContext.Followings.Remove(follow);
+            _dbContext.SaveChanges();
+
+            return Ok();
         }
     }
 }

@@ -29,7 +29,7 @@
                         {
                             if (Model.Followings.Any(f => f.FolloweeId == course.Lecturer.Id))
                             {
-                                <button data-user-id="@course.Lecturer.Id" class="btn btn-default btn-sm js-toggle-follow">Following</button>
+                                <button data-user-id="@course.Lecturer.Id" class="btn btn-sm btn-info js-toggle-follow">Following</button>
                             }
                             else
                             {

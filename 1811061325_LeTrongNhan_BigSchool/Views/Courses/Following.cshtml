@@ -1,0 +1,45 @@
+﻿
+@using _1811061325_LeTrongNhan_BigSchool.Models
+@model IEnumerable<ApplicationUser>
+
+@{ ViewBag.Title = "Following";
+   Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<h2>Following</h2>
+<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+<div class="row">
+    <ul class="course">
+        @foreach (var follow in Model)
+        {
+<li>
+    <div class="details">
+        <span class="lecturer">
+            @follow.Name
+        </span>
+    </div>
+    <button data-user-id="@follow.Id" class="btn btn-info btn-sm js-toggle-unfollow" style="width:80px">Unfollow</button>
+</li>}
+    </ul>
+</div>
+
+@section scripts{
+    <script>$(function () {
+            $(".js-toggle-unfollow").click(function (e) {
+                e.preventDefault();
+                var link = $(e.target);
+                bootbox.confirm("Are you sure to unfollow?", function () {
+                    $.ajax({
+                        url: "/api/followings/" + link.attr("data-user-id"),
+                        method: "DELETE"
+                    }).done(function () {
+                        link.parents("li").fadeOut(function () {
+                            this.remove();
+                        });
+                    }).fail(function () {
+                        alert("Something failed");
+                    });
+                });
+            });
+        })</script>
+}
+

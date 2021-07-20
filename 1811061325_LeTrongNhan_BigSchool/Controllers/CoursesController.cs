@@ -87,18 +87,13 @@ namespace _1811061325_LeTrongNhan_BigSchool.Controllers
         public ActionResult Following()
         {
             var userId = User.Identity.GetUserId();
-            var followings = _dbContext.Followings
-                .Where(a => a.FolloweeId == userId)
-                .Select(a => a.Follower)
-                .ToList();
-            
-            var viewModel = new FollowingViewModel
-            {
-                Followings = followings,
-                ShowAction = User.Identity.IsAuthenticated
-            };
 
-            return View(viewModel);
+            var listLecturer = _dbContext.Followings
+                .Where(a => a.FollowerId == userId)
+                .Select(a => a.Followee);
+
+
+            return View(listLecturer);
         }
 
         [Authorize]
