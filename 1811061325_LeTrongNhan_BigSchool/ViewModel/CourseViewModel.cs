@@ -17,7 +17,7 @@ namespace _1811061325_LeTrongNhan_BigSchool.ViewModel
         [Required]
         [FutureDate]
         public string Date { get; set; }
-
+        //aa
         [Required]
         [ValidTime]
         public string Time { get; set; }
