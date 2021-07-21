@@ -1,80 +1,100 @@
-﻿@model _1811061325_LeTrongNhan_BigSchool.ViewModel.CoursesViewModel
-@{
-    ViewBag.Title = "Attending";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@using Microsoft.AspNet.Identity;
+@using _1811061325_LeTrongNhan_BigSchool.Models
+@model _1811061325_LeTrongNhan_BigSchool.ViewModel.CoursesViewModel
+@{ ViewBag.Title = "Attending";
+  Layout = "~/Views/Shared/_Layout.cshtml"; }
+@{ var userId = User.Identity.GetUserId();
+                ApplicationDbContext _dbContext = new ApplicationDbContext(); }
 <h2>Attending</h2>
-<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+
 <div class="row">
     <ul class="course">
         @foreach (var course in Model.UpcommingCourses)
         {
-            <li>
-                <div class="date">
-                    <div class="month">
-                        @course.DateTime.ToString("MM")
-                    </div>
-                    <div class="day">
-                        @course.DateTime.ToString("dd")
+<li>
+    <div class="date">
+        <div class="month">
+            @course.DateTime.ToString("MM")
+        </div>
+        <div class="day">
+            @course.DateTime.ToString("dd")
 
-                    </div>
+        </div>
 
-                </div>
-                <div class="detail">
-                    <span class="lecture">
-                        @course.Lecturer.Name
-                        @if (course.IsCanceled == true)
-                         {
-                             <span class="label label-warning">Canceled</span>
-                         }
-
-                         @if (Model.ShowAction && !course.IsCanceled)
-                         {
-                            <button class="btn btn-link btn-sm js-toggle-follow" data--user-id="@course.Lecturer.Id">Follow</button>
-                         }
-
-
-                    </span>
-                    <span class="category">
-                        @course.Category.Name
-
-                    </span>
-                    
+    </div>
+    <div class="detail">
+        <span class="lecture">
+            @course.Lecturer.Name
+            @if (Model.ShowAction)
+            {
+                if (_dbContext.Followings.Any(f => f.FolloweeId == course.Lecturer.Id && f.FollowerId == userId))
+                {
+                <button data-user-id="@course.Lecturer.Id" class="btn btn-sm btn-info js-toggle-follow">Following</button> }
+                else
+                 {
+                <button data-user-id="@course.Lecturer.Id" class="btn btn-default btn-sm js-toggle-follow">Follow?</button>}
+                    }
 
 
-                </div>
+        </span>
+        <span class="category">
+            @course.Category.Name
 
-            </li>
-        }
+        </span>
+        @if (Model.ShowAction)
+        {
+            if (_dbContext.Attendances.Any(x => x.CourseId == course.Id && x.AttendeeId == userId && _dbContext.Courses.Any(c => c.Id == x.CourseId && c.IsCanceled == false)))
+            {
+                    <button data-course-id="@course.Id" class="btn btn-sm btn-info js-toggle-attendance">Going</button> }
+            else
+            {
+                    <button data-course-id="@course.Id" class="btn btn-sm btn-warning js-toggle-attendance">Canceled</button>}
 
+            }
+
+    </div>
+
+</li>}
     </ul>
-    @section scripts{
 
-        <script>
-const { target } = require("modernizr");
-
-          
-                $(".js-toggle-follow").click(function (e) {
-
-                    var button = $(target);
-                    $.post("/api/Followings", { followeeId: button.attr("data-user-id") })
-                        .done(function () {
-
-                            button.text("Following");
-                        })
-                        .fail(function () {
-
-                            alert("Something failed");
-
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".js-toggle-attendance").click(function (e) {
+                e.preventDefault();
+                var link = $(e.target);
+                bootbox.confirm("Are you sure to cancel?", function () {
+                    $.ajax({
+                        url: "/api/attendances/" + link.attr("data-course-id"),
+                        method: "DELETE"
+                    }).done(function () {
+                        link.parents("li").fadeOut(function () {
+                            this.remove();
                         });
-
+                    }).fail(function () {
+                        alert("Something failed");
+                    });
                 });
+            });
+            $(".js-toggle-follow").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/followings", { FolloweeId: button.attr("data-user-id") })
+                    .done(function () {
+                        button
+                            .removeClass(" btn-default")
+                            .addClass("btn-info")
+                            .text("Following");
+
+                    })
+                    .fail(function () {
+
+                        alert("Something failed");
+                    });
 
             });
 
+        });
 
-
-        </script>
-
-    }
-</div>
+    </script>
+}
